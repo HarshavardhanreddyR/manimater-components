@@ -75,6 +75,13 @@ def test_the_template_passes_the_static_check():
     "open('/etc/passwd')",
     "x = ().__class__.__bases__",
     "import numpy as np\nnp.os.system('ls')",
+    "import numpy as np\nnp.load('/etc/passwd', allow_pickle=True)",
+    "import numpy as np\nnp.savetxt('out.txt', [1])",
+    "from manim import ImageMobject\nImageMobject('secret.png')",
+    "from manim import SVGMobject\nSVGMobject('/etc/hostname')",
+    "from manim import config\nconfig.media_dir = '/tmp'",
+    "from manim import Code\nCode(code_file='/etc/passwd')",
+    "x = __builtins__",
     "def f(:\n pass",
 ])
 def test_the_static_check_rejects_unsafe_code(bad):

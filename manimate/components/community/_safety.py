@@ -15,7 +15,15 @@ ALLOWED_IMPORTS = {
 ALLOWED_LIBRARY = {"ctx", "theme", "registry", "tex", "safe_expr", "viz", "plugins", "components"}
 BANNED_CALLS = {"eval", "exec", "compile", "open", "__import__", "globals", "locals", "vars", "breakpoint", "input",
                 "exit", "quit", "setattr", "delattr", "getattr"}
-BANNED_ATTRS = {"system", "popen", "spawn", "fork", "remove", "rmtree", "unlink", "environ", "getenv"}
+BANNED_ATTRS = {"system", "popen", "spawn", "fork", "remove", "rmtree", "unlink", "environ", "getenv",
+                # file and network access that the allowed imports (numpy, pathlib-like helpers) would otherwise give
+                "load", "loadtxt", "genfromtxt", "fromfile", "tofile", "memmap", "save", "savez", "savez_compressed",
+                "savetxt", "ctypeslib", "read_text", "read_bytes", "write_text", "write_bytes", "urlopen", "urlretrieve",
+                "Popen", "check_output", "startfile"}
+# Manim names that read files or change global settings. Components draw from parameters; they never load assets.
+BANNED_NAMES = {"ImageMobject", "SVGMobject", "VideoMobject", "config", "tempconfig", "__builtins__", "__file__",
+                "__loader__", "__spec__"}
+BANNED_KEYWORDS = {"code_file", "file_name", "filename", "image_filename"}
 
 
 def check_source(source: str) -> list[str]:
@@ -45,6 +53,10 @@ def check_source(source: str) -> list[str]:
                 problems.append(f"line {node.lineno}: access to {node.attr} is not allowed")
             elif node.attr in BANNED_ATTRS:
                 problems.append(f"line {node.lineno}: .{node.attr} is not allowed")
+        elif isinstance(node, ast.Name) and node.id in BANNED_NAMES:
+            problems.append(f"line {node.lineno}: {node.id} is not allowed (components cannot load files or change Manim's settings)")
+        elif isinstance(node, ast.keyword) and node.arg in BANNED_KEYWORDS:
+            problems.append(f"line {node.value.lineno}: the {node.arg}= argument is not allowed (components cannot read files)")
         elif isinstance(node, (ast.Global, ast.Nonlocal)):
             problems.append(f"line {node.lineno}: global/nonlocal is not allowed")
     return problems
