@@ -1,0 +1,9 @@
+# Code owners are asked to review every change. The rules below make sure the files that decide what code is trusted
+# (CI, the safety check, the policy scripts, packaging) always get a maintainer's eyes.
+*                                          @bishnt
+/.github/                                  @bishnt
+/scripts/                                  @bishnt
+/manimate/components/community/_safety.py  @bishnt
+/pyproject.toml                            @bishnt
+/SECURITY.md                               @bishnt
+/CONTRIBUTING.md                           @bishnt

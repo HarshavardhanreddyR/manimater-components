@@ -18,9 +18,10 @@ jobs:
   build:
     if: contains(github.event.issue.labels.*.name, 'component-submission')
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
         with: { python-version: "3.11" }
 
       - name: Check the submission (static only)
@@ -77,14 +78,15 @@ jobs:
           The code passed a **static** check only (allowed imports, no \`eval\`/\`exec\`/files/network). It has **not been run**, and CI does not start
           automatically on bot pull requests. Do this in order:
           1. Read \`manimate/components/community/${name}.py\` carefully.
-          2. Run the **Regenerate catalog** workflow on branch \`${branch}\` (Actions tab). It runs the code, regenerates \`catalog.json\` and the docs, pushes the result, and starts CI.
-          3. Preview it: \`python -m manimate.preview ${name}\`, and check the five design questions in CONTRIBUTING.md.
+          2. Run the **Regenerate catalog** workflow on branch \`${branch}\` (Actions tab). It runs the code, regenerates \`catalog.json\` and the docs, and pushes the result.
+          3. **Close and reopen this pull request.** Pull requests opened by a bot do not start the checks by themselves; reopening it as yourself starts **CI** and **PR policy** on the final commit.
+          4. Preview it: \`python -m manimate.preview ${name}\` (CI also renders it and attaches the video), and check the five design questions in CONTRIBUTING.md.
           EOT
           if gh pr view "$branch" >/dev/null 2>&1; then
             gh pr edit "$branch" --body-file "$RUNNER_TEMP/pr.md"
           else
-            gh pr create --head "$branch" --base main --title "New component: ${name}" --body-file "$RUNNER_TEMP/pr.md" --label "from-issue" || \
-            gh pr create --head "$branch" --base main --title "New component: ${name}" --body-file "$RUNNER_TEMP/pr.md"
+            gh pr create --head "$branch" --base main --title "feat(community): add ${name} component" --body-file "$RUNNER_TEMP/pr.md" --label "from-issue" || \
+            gh pr create --head "$branch" --base main --title "feat(community): add ${name} component" --body-file "$RUNNER_TEMP/pr.md"
           fi
           pr=$(gh pr view "$branch" --json url -q .url)
           gh issue comment "$ISSUE" --body "Thank you! The check passed and I opened ${pr}. A maintainer will read it, run it, and reply there. You do not need to do anything else."
