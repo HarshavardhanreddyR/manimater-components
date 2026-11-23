@@ -106,8 +106,9 @@ under Settings, Capabilities, Skills.
 
 New components are the best way to help, and you do not have to code.
 
-- **Developer:** copy [`_template.py`](manimate/components/community/_template.py) into `manimate/components/community/`,
-  see [CONTRIBUTING.md](CONTRIBUTING.md) and [docs/WRITING_A_COMPONENT.md](docs/WRITING_A_COMPONENT.md).
+- **Developer:** copy [`_template.py`](manimate/components/community/_template.py) into `manimate/components/community/`
+  on a branch named `component/<name>` (one component per pull request), see [CONTRIBUTING.md](CONTRIBUTING.md) and
+  [docs/WRITING_A_COMPONENT.md](docs/WRITING_A_COMPONENT.md).
 - **Not a developer:** describe the animation you want to any LLM, paste the result into a form, and we turn it into a pull
   request for you. Start with [docs/GENERATE_WITH_AN_LLM.md](docs/GENERATE_WITH_AN_LLM.md).
 

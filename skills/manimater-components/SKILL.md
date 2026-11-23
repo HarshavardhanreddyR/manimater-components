@@ -108,8 +108,10 @@ Report what you ran and what happened. If you could not run anything, say so.
 
 Tell the user, in plain words, which path fits them:
 
-- **They can use git/GitHub:** fork the repo, commit the new file(s) and the regenerated `catalog.json`, open a pull
-  request. See `CONTRIBUTING.md` (it has the checklist and the five design questions to answer in the description).
+- **They can use git/GitHub:** fork the repo, create a branch named `component/<name>` (a new component always goes on
+  its own such branch, one component per pull request), commit the component, its test and the regenerated
+  `catalog.json` and docs, and open a pull request titled `feat(community): add <name>`. See `CONTRIBUTING.md` (the rules
+  CI enforces, the checklist and the five design questions to answer in the description).
 - **They do not code (most people):** give them the Python file in one code block (and the test in a second), and tell
   them to open the **New component (from an LLM)** issue form at
   https://github.com/bishnt/manimater-components/issues/new?template=new-component.yml and paste the code in. A bot checks
