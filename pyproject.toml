@@ -4,7 +4,7 @@ version = "0.1.0"
 description = "Tested, reusable Manim animation components for explainer videos: one JSON-driven library."
 readme = "README.md"
 license = { text = "MIT" }
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 authors = [{ name = "Bishrant Ghimire" }]
 dependencies = ["manim>=0.19,<1.0", "pydantic>=2.6"]
 
@@ -16,7 +16,7 @@ manimate-catalog = "manimate.catalog:main"
 dev = ["pytest>=8"]
 
 [project.urls]
-Homepage = "https://github.com/bishnt/manimater-components"
+Homepage = "https://github.com/Manimater/manimater-components"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

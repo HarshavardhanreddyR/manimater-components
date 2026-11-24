@@ -1,0 +1,6 @@
+# Paths proposed to the Manimater app when a change to them is merged here (see docs/SYNC.md).
+# One path per line, relative to the repository root. A trailing slash means a whole directory.
+# In the app these live under renderer/ (the same layout, one folder down). Edit this list to change what is synced.
+manimate/
+examples/
+tests/

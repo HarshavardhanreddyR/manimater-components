@@ -3,7 +3,6 @@ from __future__ import annotations
 
 from manim import (
     DOWN,
-    LEFT,
     RIGHT,
     UP,
     WHITE,
@@ -327,7 +326,6 @@ def sql_join(
 
     # Draw one connector for each matching pair, anchored to the row centres.
     connectors = VGroup()
-    match_labels = VGroup()
     for left_index, left in enumerate(left_rows[:4]):
         value = left[key]
         if value is None:

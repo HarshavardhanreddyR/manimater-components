@@ -64,7 +64,7 @@ Manimater turns a prompt into a narrated explainer video. This library is what m
 ## Quick start
 
 ```bash
-git clone https://github.com/bishnt/manimater-components && cd manimater-components
+git clone https://github.com/Manimater/manimater-components && cd manimater-components
 # Manim needs ffmpeg, Cairo and Pango (https://docs.manim.community/en/stable/installation.html).
 pip install -e ".[dev]"
 ./scripts/install_plugins.sh          # the community Manim packages some components wrap (optional)
@@ -106,8 +106,9 @@ under Settings, Capabilities, Skills.
 
 New components are the best way to help, and you do not have to code.
 
-- **Developer:** copy [`_template.py`](manimate/components/community/_template.py) into `manimate/components/community/`,
-  see [CONTRIBUTING.md](CONTRIBUTING.md) and [docs/WRITING_A_COMPONENT.md](docs/WRITING_A_COMPONENT.md).
+- **Developer:** copy [`_template.py`](manimate/components/community/_template.py) into `manimate/components/community/`
+  on a branch named `component/<name>` (one component per pull request), see [CONTRIBUTING.md](CONTRIBUTING.md) and
+  [docs/WRITING_A_COMPONENT.md](docs/WRITING_A_COMPONENT.md).
 - **Not a developer:** describe the animation you want to any LLM, paste the result into a form, and we turn it into a pull
   request for you. Start with [docs/GENERATE_WITH_AN_LLM.md](docs/GENERATE_WITH_AN_LLM.md).
 
@@ -127,8 +128,8 @@ New components are the best way to help, and you do not have to code.
 ## Relationship to Manimater
 
 [Manimater](https://github.com/bishnt/manimater) uses this library to render videos, and the two copies are kept in sync by
-CI: a change merged here is proposed to the app as a pull request, and a component change made in the app is mirrored
-here. The synced paths are listed in [docs/SYNC.md](docs/SYNC.md).
+CI: a change merged here is proposed to the app as a pull request. A component change made in the app is brought here by hand.
+The synced paths and the setup are in [docs/SYNC.md](docs/SYNC.md).
 
 ## License
 

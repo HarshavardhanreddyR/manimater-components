@@ -57,13 +57,20 @@ Only MIT (or Creative Commons) licensed plugins. Import the plugin **inside** th
 `from ._plugin import require` so the library still imports without it, declare it in `manimate/plugins.py`, pin it in
 `scripts/install_plugins.sh`, and add a row to [THIRD_PARTY.md](THIRD_PARTY.md). See `physics.py` for an example.
 
+## Branch and pull request
+
+A new component goes on its own branch named `component/<name>` (the same name as the file and the `@component`), one
+component per pull request, with the title `feat(community): add <name>`. The branch carries the component, its test
+and the regenerated `catalog.json` and docs, and nothing else. CI enforces this; see [CONTRIBUTING.md](../CONTRIBUTING.md).
+
 ## Test it
 
 ```bash
 python -m manimate.preview my_component         # look at it
 python -m manimate.preview my_component --params '{"steps": ["a"]}'     # try awkward input
+python scripts/check_community.py              # fast static rules (what CI runs first)
 python -m pytest tests/community                # generic checks run on every community component
-python -m manimate.catalog > catalog.json
+python -m manimate.catalog > catalog.json && python scripts/gen_docs.py   # CI fails if these are stale
 ```
 
 Put the logic tests in `tests/community/test_my_component.py`. Test edge cases: empty, one item, the maximum, long labels.
