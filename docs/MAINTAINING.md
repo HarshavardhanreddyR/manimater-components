@@ -15,6 +15,7 @@ How the checks fit together, what to switch on in GitHub, and how to handle each
 | `CI` → **CI passed** | always | no | the one summary check to require |
 | **PR policy** | `pull_request_target` | **never** (metadata and `git diff` only) | branch name, title, description, one component per PR, file hygiene |
 | **Regenerate catalog** | manual | the branch's code (read it first) | regenerates `catalog.json` and docs on a contribution branch |
+| **Sync to app** | push to `main` (synced paths) | trusted code only | proposes the merged change to the app as a pull request; needs `APP_REPO_TOKEN` (see [SYNC.md](SYNC.md)) |
 | **Component from issue** | issue labelled `component-submission` | never (static parse only) | turns an LLM submission into a `component/` pull request |
 
 `PR policy` uses `pull_request_target` deliberately: the rules come from `main`, so a pull request cannot weaken them by
@@ -34,6 +35,11 @@ gh api repos/Manimater/manimater-components/rulesets --method POST --input .gith
 Check the existing "ruleset" (it only blocks deletion and force-push) afterwards and remove duplicates. The bypass in the
 file lets repository admins merge their own pull requests (`bypass_mode: pull_request`), so a solo maintainer is not
 locked out while others still need a review. Remove it once there are two maintainers.
+
+**When a second maintainer joins:** create a team (for example `Manimater/maintainers`) with write access, replace `@bishnt` with
+the team in `.github/CODEOWNERS`, then delete the `bypass_actors` entry from the ruleset so that nobody, admins included,
+merges without a code-owner review. Create the team first: a CODEOWNERS line naming a team that does not exist is ignored, and
+the required code-owner review can then never be satisfied.
 
 Also recommended under **Settings**:
 

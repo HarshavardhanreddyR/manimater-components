@@ -125,8 +125,8 @@ maintainer's review.
 
 ## How your contribution reaches Manimater
 
-When a pull request is merged here, CI opens a pull request in [Manimater](https://github.com/bishnt/manimater) with the
-same change, so the app and this library never drift.
+When a pull request is merged here, the **Sync to app** workflow opens a pull request in [Manimater](https://github.com/bishnt/manimater) with the
+same change, so the app and this library do not drift (see [docs/SYNC.md](docs/SYNC.md)).
 
 ## Security
 
