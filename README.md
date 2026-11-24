@@ -64,7 +64,7 @@ Manimater turns a prompt into a narrated explainer video. This library is what m
 ## Quick start
 
 ```bash
-git clone https://github.com/bishnt/manimater-components && cd manimater-components
+git clone https://github.com/Manimater/manimater-components && cd manimater-components
 # Manim needs ffmpeg, Cairo and Pango (https://docs.manim.community/en/stable/installation.html).
 pip install -e ".[dev]"
 ./scripts/install_plugins.sh          # the community Manim packages some components wrap (optional)

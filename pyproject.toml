@@ -16,7 +16,7 @@ manimate-catalog = "manimate.catalog:main"
 dev = ["pytest>=8"]
 
 [project.urls]
-Homepage = "https://github.com/bishnt/manimater-components"
+Homepage = "https://github.com/Manimater/manimater-components"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

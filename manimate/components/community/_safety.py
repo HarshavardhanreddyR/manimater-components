@@ -23,6 +23,8 @@ BANNED_ATTRS = {"system", "popen", "spawn", "fork", "remove", "rmtree", "unlink"
 # Manim names that read files or change global settings. Components draw from parameters; they never load assets.
 BANNED_NAMES = {"ImageMobject", "SVGMobject", "VideoMobject", "config", "tempconfig", "__builtins__", "__file__",
                 "__loader__", "__spec__"}
+# Reached through ``import manim; manim.config`` or ``from manim import config as c`` these are just as dangerous.
+BANNED_MANIM = BANNED_NAMES - {"__builtins__", "__file__", "__loader__", "__spec__"}
 BANNED_KEYWORDS = {"code_file", "file_name", "filename", "image_filename"}
 
 
@@ -46,12 +48,16 @@ def check_source(source: str) -> list[str]:
                     problems.append(f"line {node.lineno}: relative import {'.' * node.level}{node.module or ''} is not allowed")
             elif root not in ALLOWED_IMPORTS | {"manimate"}:
                 problems.append(f"line {node.lineno}: import from {node.module!r} is not allowed")
-        elif isinstance(node, ast.Call) and isinstance(node.func, ast.Name) and node.func.id in BANNED_CALLS:
-            problems.append(f"line {node.lineno}: {node.func.id}() is not allowed")
+            for a in node.names:
+                if a.name in BANNED_MANIM or a.name in BANNED_CALLS:
+                    problems.append(f"line {node.lineno}: importing {a.name} is not allowed (components cannot load files, "
+                                    "change Manim's settings or run code)")
+        elif isinstance(node, ast.Name) and node.id in BANNED_CALLS and isinstance(node.ctx, ast.Load):
+            problems.append(f"line {node.lineno}: {node.id} is not allowed (if this is your own variable, give it another name)")
         elif isinstance(node, ast.Attribute):
             if node.attr.startswith("__") and node.attr.endswith("__") and node.attr not in {"__name__", "__doc__"}:
                 problems.append(f"line {node.lineno}: access to {node.attr} is not allowed")
-            elif node.attr in BANNED_ATTRS:
+            elif node.attr in BANNED_ATTRS or node.attr in BANNED_MANIM:
                 problems.append(f"line {node.lineno}: .{node.attr} is not allowed")
         elif isinstance(node, ast.Name) and node.id in BANNED_NAMES:
             problems.append(f"line {node.lineno}: {node.id} is not allowed (components cannot load files or change Manim's settings)")

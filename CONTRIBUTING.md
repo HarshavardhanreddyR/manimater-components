@@ -43,7 +43,7 @@ if a rule is wrong for your change, say so in the description.
 ```bash
 # 1. Fork on GitHub, then:
 git clone https://github.com/<you>/manimater-components && cd manimater-components
-git remote add upstream https://github.com/Manimater/manimater-components
+git remote add -f upstream https://github.com/Manimater/manimater-components   # -f fetches it, so upstream/main exists
 git switch -c component/my_component upstream/main      # the branch name is the rule: component/<name>
 
 # 2. Set up

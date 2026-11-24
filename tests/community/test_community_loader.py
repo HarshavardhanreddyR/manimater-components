@@ -86,3 +86,22 @@ def test_the_template_passes_the_static_check():
 ])
 def test_the_static_check_rejects_unsafe_code(bad):
     assert check_source(bad)
+
+
+@pytest.mark.parametrize("src", [
+    "f = open\nf('/etc/passwd')",                                   # a banned builtin used through an alias
+    "e = eval\ne('1')",
+    "fs = [open, eval]\nfs[0]('x')",                                # ... or stored somewhere
+    "import manim\nmanim.config.media_dir = '/tmp'",                # a banned Manim name reached as an attribute
+    "import manim\nm = manim.ImageMobject('x.png')",
+    "import manim\nm = manim.SVGMobject('x.svg')",
+    "from manim import ImageMobject as I\nI('x.png')",              # ... or imported under another name
+    "from manim import config as c\nc.media_dir = '/x'",
+])
+def test_safety_check_blocks_aliases_and_attributes(src):
+    assert check_source(src), f"should have been blocked: {src!r}"
+
+
+def test_safety_check_only_blocks_using_a_banned_builtin_not_assigning_the_name():
+    assert check_source("input = 3\n") == []                      # assigning is harmless
+    assert check_source("input = 3\nprint_me = input\n")           # but reading it back is the builtin's name: rename it

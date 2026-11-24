@@ -16,4 +16,4 @@ shell escape disabled and paranoid file access (`openin_any=p`, `openout_any=p`)
 read-only file system, and apply time and memory limits. A maintainer still reads every contribution.
 
 To report a vulnerability, please do **not** open a public issue. Use GitHub's
-[private vulnerability reporting](https://github.com/bishnt/manimater-components/security/advisories/new) for this repository.
+[private vulnerability reporting](https://github.com/Manimater/manimater-components/security/advisories/new) for this repository.

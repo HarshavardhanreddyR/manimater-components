@@ -6,7 +6,7 @@ description: Use the Manimater open-source Manim component library (manimater-co
 # manimater-components
 
 A library of tested Manim components driven by JSON. A **component** is a name plus parameters; it never needs animation
-code from you. Repository: https://github.com/bishnt/manimater-components (MIT). The Manimater app uses the same library.
+code from you. Repository: https://github.com/Manimater/manimater-components (MIT). The Manimater app uses the same library.
 
 Two things you may be asked to do:
 
@@ -114,7 +114,7 @@ Tell the user, in plain words, which path fits them:
   CI enforces, the checklist and the five design questions to answer in the description).
 - **They do not code (most people):** give them the Python file in one code block (and the test in a second), and tell
   them to open the **New component (from an LLM)** issue form at
-  https://github.com/bishnt/manimater-components/issues/new?template=new-component.yml and paste the code in. A bot checks
+  https://github.com/Manimater/manimater-components/issues/new?template=new-component.yml and paste the code in. A bot checks
   it without running it and opens the pull request for them, credited to them; a maintainer reviews it.
 
 End with a three-line summary the user can paste into the form: what it teaches, the parameters, and the failure cases you
