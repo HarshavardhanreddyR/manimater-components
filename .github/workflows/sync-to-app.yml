@@ -23,7 +23,7 @@ jobs:
       APP_REPO: ${{ vars.APP_REPO || 'bishnt/manimater' }}
       GH_TOKEN: ${{ secrets.APP_REPO_TOKEN }}
     steps:
-      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with: { fetch-depth: 2, persist-credentials: false }
       - name: Is the sync token configured?
         id: token
